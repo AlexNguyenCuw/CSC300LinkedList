@@ -83,6 +83,43 @@ public class LinkedList
 		}
 		
 	}
+	void printOdds()
+	{
+		Node currNode = head;
+		while(currNode != null)
+		{
+			if(currNode.getPayload() % 2 ==1)
+			{
+				System.out.println(currNode.getPayload());
+			}
+		}
+	}
+	
+	public int removeFront() throws Exception 
+	{
+		if(head == null)
+		{
+			throw new Exception ("Can Not Remove Front: Empty List");
+		}
+		Node currNode =head;
+		head = head.getNextNode();
+		currNode.setNextNode(null);
+		this.count--;
+		return currNode.getPayload();
+	}
+	public int removeEnd() throws Exception
+	{
+		if(head == null)
+		{
+			throw new Exception ("Can Not Remove Front: Empty List");
+		}
+		else if (this.count ==1)
+		{
+			return this.removeFront();
+		}
+		//finish this
+		// and removeIndex
+	}
 	
 	public void addFront(int payload)
 	{
