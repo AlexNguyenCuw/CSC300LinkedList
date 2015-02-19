@@ -3,11 +3,13 @@
 public class LinkedList
 {
 	private Node head;
+	private Node end;
 	private int count;
 	
 	public LinkedList()
 	{
 		this.head = null;
+		this.end = null;
 		this.count = 0;
 	}
 	
@@ -74,15 +76,42 @@ public class LinkedList
 			n.setNextNode(curr.getNextNode());
 			curr.setNextNode(n);
 			this.count++;
-			/*for(int i = 0; i< index; i++)
-			{
-				currNode = currNode.getNextNode();
-			}
-			n.setNextNode(currNode);
-			this.count++;*/
 		}
 		
 	}
+	
+	public int removeAtIndex( int index) throws Exception
+	{
+		
+		if(index == 0)
+		{
+			return this.removeFront();
+		}
+		else if(index == this.count - 1)
+		{
+			return this.removeEnd();
+		}
+		else if(index < 0 || index >= this.count)
+		{
+			throw new Exception ("Can Not Remove Node that not exit");
+		}
+		else
+		{
+			Node remove = head;
+			Node currNode = head;
+			for(int i =0 ; i< index-1; i++)
+			{
+				currNode =currNode.getNextNode();
+			}
+			remove = currNode.getNextNode();
+			currNode.setNextNode(remove.getNextNode());
+			remove.setNextNode(null);
+			this.count--;
+			return currNode.getPayload();
+		}
+		
+	}
+	
 	void printOdds()
 	{
 		Node currNode = head;
@@ -92,6 +121,7 @@ public class LinkedList
 			{
 				System.out.println(currNode.getPayload());
 			}
+			currNode = currNode.getNextNode();
 		}
 	}
 	
@@ -101,7 +131,7 @@ public class LinkedList
 		{
 			throw new Exception ("Can Not Remove Front: Empty List");
 		}
-		Node currNode =head;
+		Node currNode = head;
 		head = head.getNextNode();
 		currNode.setNextNode(null);
 		this.count--;
@@ -111,14 +141,27 @@ public class LinkedList
 	{
 		if(head == null)
 		{
-			throw new Exception ("Can Not Remove Front: Empty List");
+			throw new Exception ("Can Not Remove End: Empty List");
 		}
 		else if (this.count ==1)
 		{
 			return this.removeFront();
 		}
-		//finish this
-		// and removeIndex
+		else 
+		{
+			Node currNode = this.head;
+			Node remove = this.end;
+			while(currNode.getNextNode() != remove)
+			{
+				currNode = currNode.getNextNode();
+				
+			}
+			currNode.setNextNode(null);
+			end = currNode;
+			this.count--;
+			return currNode.getPayload();
+		}
+		
 	}
 	
 	public void addFront(int payload)
