@@ -21,6 +21,9 @@ public class Driver
 		ll.addFront(2);
 		ll.addAtIndex(8, 4);
 		ll.display();
+		ll.removeAtIndex(2);
+		ll.display();
+		ll.displayInReverse();
 		//ll.printOdds();
 		/*try
 		{
@@ -40,7 +43,7 @@ public class Driver
 		{
 			System.out.println("Failed to remove");
 		}
-		ll.display();*/
+		ll.display();
 		
 		try
 		{
@@ -50,7 +53,7 @@ public class Driver
 		{
 			System.out.println("Failed to remove");
 		}
-		
+		*/
 		
 	}
 }

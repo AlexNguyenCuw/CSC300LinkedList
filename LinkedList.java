@@ -3,14 +3,23 @@
 public class LinkedList
 {
 	private Node head;
-	private Node end;
+	private Node tail;
 	private int count;
 	
 	public LinkedList()
 	{
 		this.head = null;
-		this.end = null;
+		this.tail = null;
 		this.count = 0;
+	}
+	public void displayInReverse()
+	{
+		LinkedList temp = new LinkedList();
+		for(int i=0; i< this.count;i++)
+		{
+			temp.addFront(this.get(i));
+		}
+		temp.display();
 	}
 	
 	public int get(int index)
@@ -91,23 +100,23 @@ public class LinkedList
 		{
 			return this.removeEnd();
 		}
-		else if(index < 0 || index >= this.count)
+		else if(index < 0 || index >= this.count-1)
 		{
 			throw new Exception ("Can Not Remove Node that not exit");
 		}
 		else
 		{
-			Node remove = head;
 			Node currNode = head;
-			for(int i =0 ; i< index-1; i++)
+			for(int i =0 ; i< index; i++)
 			{
 				currNode =currNode.getNextNode();
 			}
-			remove = currNode.getNextNode();
-			currNode.setNextNode(remove.getNextNode());
-			remove.setNextNode(null);
+			int payloadToReturn = currNode.getNextNode().getPayload();
+			Node temp = currNode.getNextNode().getNextNode();
+			currNode.getNextNode().setNextNode(null);
+			currNode.setNextNode(temp);
 			this.count--;
-			return currNode.getPayload();
+			return payloadToReturn;
 		}
 		
 	}
@@ -150,16 +159,15 @@ public class LinkedList
 		else 
 		{
 			Node currNode = this.head;
-			Node remove = this.end;
-			while(currNode.getNextNode() != remove)
+			for(int i =1; i< this.count-1; i++)
 			{
 				currNode = currNode.getNextNode();
-				
 			}
+			int payloadToReturn = currNode.getNextNode().getPayload();
 			currNode.setNextNode(null);
-			end = currNode;
 			this.count--;
-			return currNode.getPayload();
+			return payloadToReturn;
+			
 		}
 		
 	}
