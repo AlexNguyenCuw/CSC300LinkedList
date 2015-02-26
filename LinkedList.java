@@ -5,16 +5,28 @@ public class LinkedList
 	private Node head;
 	private Node tail;
 	private int count;
-	//blah
+	
 	
 	public LinkedList()
 	{
 		this.head = null;
 		this.tail = null;
-		this.count = 0;
-		
-		
+		this.count = 0;	
 	}
+	
+	public void push(int payload)
+	{
+		this.addFront(payload);
+	}
+	public int pop() throws Exception
+	{
+		return this.removeFront();
+	}
+	public int peek()
+	{
+		return this.get(0);
+	}
+	
 	public void displayInReverse()
 	{
 		Node currNode = tail;
@@ -42,14 +54,19 @@ public class LinkedList
 				curr = curr.getNextNode();
 			}
 			return curr.getPayload();
-		
 		}
 	}
+	
+	public int count()
+	{
+		return this.count;
+	}
+	
 	public void display()
 	{
 		if(head == null)
 		{
-			System.out.println("Empty list");
+			System.out.println("Empty List");
 		}
 		else
 		{
@@ -62,14 +79,9 @@ public class LinkedList
 			System.out.println(currNode.getPayload() + "-> null");
 		}
 	}
-	public int count()
-	{
-		return this.count;
-	}
 	
 	public void addAtIndex(int payload, int index)
 	{
-		
 		if(index <= 0)
 		{
 			this.addFront(payload);
@@ -82,23 +94,55 @@ public class LinkedList
 		{
 			Node n = new Node(payload);
 			Node curr = head;
-			
-			for(int i =0 ; i< index; i++)
+			for(int i = 0; i < index; i++)
 			{
-				curr =curr.getNextNode();
+				curr = curr.getNextNode();
 			}
 			n.setNextNode(curr);
 			n.setPrevNode(curr.getPrevNode());
 			curr.setPrevNode(n);
-		//	n.getPrevNode()
+			n.getPrevNode().setNextNode(n);
 			this.count++;
 		}
 		
 	}
 	
-	public int removeAtIndex( int index) throws Exception
+	public void addFront(int payload)
 	{
-		
+		Node n = new Node(payload);
+		if(head == null)
+		{
+			head = n;
+			tail = n;
+		}
+		else
+		{
+			n.setNextNode(head);
+			head.setPrevNode(n);
+			head = n;
+		}
+		this.count++;
+	}
+	
+	public void addEnd(int payload)
+	{
+		Node n = new Node(payload);
+		if(this.head == null)
+		{
+			this.head = n;
+			this.tail = n;
+		}
+		else
+		{
+			tail.setNextNode(n);
+			n.setPrevNode(tail);
+			tail = n;
+		}
+		this.count++;
+	}
+	
+	public int removeAtIndex(int index) throws Exception
+	{
 		if(head == null)
 		{
 			throw new Exception("Can Not Remove At Index: Empty List");
@@ -135,31 +179,39 @@ public class LinkedList
 		}
 	}
 	
-	void printOdds()
-	{
-		Node currNode = head;
-		while(currNode != null)
-		{
-			if(currNode.getPayload() % 2 ==1)
-			{
-				System.out.println(currNode.getPayload());
-			}
-			currNode = currNode.getNextNode();
-		}
-	}
-	
-	public int removeFront() throws Exception 
+	public int removeEnd() throws Exception
 	{
 		if(head == null)
 		{
-			throw new Exception ("Can Not Remove Front: Empty List");
+			throw new Exception("Can Not Remove End: Empty List");
 		}
-		else if (this.count ==1)
+		else if(this.count == 1)
+		{
+			return this.removeFront();
+		}
+		else
+		{
+			Node curr = tail;
+			tail = curr.getPrevNode();
+			curr.setPrevNode(null);
+			tail.setNextNode(null);
+			this.count--;
+			return curr.getPayload();
+		}
+	}
+	
+	public int removeFront() throws Exception
+	{
+		if(head == null)
+		{
+			throw new Exception("Can Not Remove Front: Empty List");
+		}
+		else if(this.count == 1)
 		{
 			int payloadToReturn = this.head.getPayload();
 			this.head = null;
 			this.tail = null;
-			this.count--;
+			this.count = 0;
 			return payloadToReturn;
 		}
 		else
@@ -171,61 +223,5 @@ public class LinkedList
 			this.count--;
 			return curr.getPayload();
 		}
-	}
-	public int removeEnd() throws Exception
-	{
-		if(tail == null)
-		{
-			throw new Exception ("Can Not Remove End: Empty List");
-		}
-		else if (this.count ==1)
-		{
-			return this.removeFront();
-		}
-		else 
-		{
-			Node curr = tail;
-			tail = curr.getPrevNode();
-			curr.setPrevNode(null);
-			tail.setNextNode(null);
-			this.count--;
-			return curr.getPayload();
-			
-		}
-		
-	}
-	
-	public void addFront(int payload)
-	{
-		Node n = new Node(payload);
-		if(this.head == null)
-		{
-			this.tail = n;
-			this.head =n;
-		}
-		else
-		{
-		n.setNextNode(head);
-		head.setPrevNode(n);
-		head = n;
-		}
-		this.count++;
-	}
-	
-	public void addEnd(int payload)
-	{
-		Node n = new Node(payload);
-		if(this.head == null)
-		{
-			this.head = n;
-			this.tail =n;
-		}
-		else
-		{
-			tail.setNextNode(n);
-			n.setPrevNode(tail);
-			tail = n;
-		}
-		this.count++;
 	}
 }

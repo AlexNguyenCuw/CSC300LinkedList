@@ -14,10 +14,19 @@ public class Driver
 		{
 			System.out.println("Failed to remove");
 		}
-	
+		ll.push(1);
+		ll.push(2);
+		ll.push(3);
+		ll.push(4);
+		ll.push(5);
+		ll.display();
+		ll.pop();
+		ll.display();
+		System.out.println(ll.peek());
 		
 		
-		ll.addEnd(3);
+		
+		/*ll.addEnd(3);
 		ll.addEnd(7);
 		ll.addEnd(4);
 		ll.addFront(2);
