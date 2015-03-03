@@ -103,6 +103,7 @@ public class RPCalc
 		}
 	}
 
+	
 	public int sumStack()throws Exception
 	{
 		

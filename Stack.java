@@ -26,6 +26,7 @@ private Node top;
 			n.setNextNode(this.top);
 			this.top = n;
 		}
+		
 	}
 	
 	public int pop() throws Exception

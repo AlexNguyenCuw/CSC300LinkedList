@@ -4,7 +4,6 @@ public class Driver
 	{
 		RPCalc theCalc = new RPCalc();
 		theCalc.on();
-	//System.out.println(theCalc.sumStack());
 	}
 	
 
